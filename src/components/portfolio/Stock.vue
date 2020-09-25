@@ -20,7 +20,7 @@
                     <button
                             class="btn btn-success"
                             @click="sellStock"
-                            :disabled="quantity <= 0 || !Number.isInteger(quantity)">Sell
+                            :disabled="quantity <= 0 || !Number.isInteger(quantity)">
                     </button>
                 </div>
             </div>
@@ -40,17 +40,14 @@
         },
         
         methods: {
-            ...mapActions([
-                'sellStock'
-            ]),
-            sellStock() {
-                const order = {
-                    stockId: this.stock.id,
-                    stockPrice: this.stock.price,
-                    quantity: this.quantity
-                }
-
-            }
-        }
+           buystock() {
+               const order = {
+                   stockId : this.stock.id,
+                   stockPrice : this.stock.price,
+                   quantity: this.quantity
+               }
+               this.$store.dispatch('buyStock', order);
+               this.quantity = 0;
+           }
     }
 </script>

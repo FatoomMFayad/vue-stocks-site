@@ -2,38 +2,40 @@ import stocks from '../../data/stocks';
 
 const state = {
     stocks: []
-}
+};
 
 const mutations = {
-    'SET_STOCKS'(state, stocks){
+    'SET_STOCKS' (state, stocks) {
         state.stocks = stocks;
     },
-    'END_STOCKS'(state) {
-
+    'RND_STOCKS' (state) {
+        state.stocks.forEach(stock => {
+            stock.price = Math.round(stock.price * (1 + Math.random() - 0.5));
+        });
     }
 };
 
 const actions = {
-    buyStock: ({ commit }, order) => {
-        commit();
+    buyStock: ({commit}, order) => {
+        commit('BUY_STOCK', order);
     },
-    initStocks: ({ commit }) => {
+    initStocks: ({commit}) => {
         commit('SET_STOCKS', stocks);
     },
-    randomizeStocks: ({ commit }) => {
-        commit('FIND_STOCKS');
+    randomizeStocks: ({commit}) => {
+        commit('RND_STOCKS');
     }
-}
+};
 
 const getters = {
     stocks: state => {
-       return state.stocks; 
+        return state.stocks;
     }
-}
+};
 
-export default{
+export default {
     state,
     mutations,
     actions,
     getters
-}
+};
